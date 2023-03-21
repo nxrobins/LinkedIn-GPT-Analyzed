@@ -60,6 +60,33 @@ async function analyzeProfileData(profileData) {
         temperature: 0.7,
       }),
     });
+    
+    async function analyzeProfileData(profileData) {
+  // Handle the case when profileData contains an error or is undefined.
+  if (!profileData || profileData.error) {
+    const errorMessage = profileData ? profileData.error : "No profile data received.";
+    console.error(errorMessage);
+    return errorMessage;
+  }
+
+  // The rest of the code remains unchanged.
+  // ...
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "analyzeProfile") {
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: "fetchProfileData" }, async (profileData) => {
+        const analysis = await analyzeProfileData(profileData);
+        sendResponse({ analysis });
+      });
+    });
+
+    // Add this line to keep the message channel open for asynchronous responses.
+    return true;
+  }
+});
+
 
     const data = await response.json();
     console.log("API response:", data);
