@@ -1,5 +1,5 @@
 async function analyzeProfileData(profileData) {
-  const apiKey = "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";
+  const apiKey = "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";
   const apiEndpoint = "https://api.openai.com/v1/engines/davinci-codex/completions";
   const prompt = `Analyze the LinkedIn profile of ${profileData.name}, who has the headline "${profileData.headline}".`;
 
