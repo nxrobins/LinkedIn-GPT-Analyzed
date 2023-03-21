@@ -7,7 +7,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer YOUR_API_KEY"
+        "Authorization": "Bearer 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
+"
       },
       body: JSON.stringify({
         prompt: prompt,
