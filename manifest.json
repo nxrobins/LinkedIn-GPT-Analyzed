@@ -11,11 +11,15 @@
     }
   },
   "permissions": ["activeTab", "scripting"],
+ {
+  ...
   "content_scripts": [
     {
       "matches": ["https://www.linkedin.com/in/*"],
       "js": ["content.js"]
     }
+  ],
+}
   ],
   "background": {
     "service_worker": "background.js"
