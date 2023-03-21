@@ -109,4 +109,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
   }
 });
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "analyzeProfile") {
+    console.log("Received 'analyzeProfile' action");
+
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+      console.log("Sending 'fetchProfileData' message to the active tab");
+
+      chrome.tabs.sendMessage(tabs[0].id, { action: "fetchProfileData" }, async (profileData) => {
+        console.log("Received profile data:", profileData);
+
+        const analysis = await analyzeProfileData(profileData);
+        sendResponse({ analysis });
+      });
+    });
+
+    // Keep the message channel open for asynchronous responses.
+    return true;
+  }
+});
+
 
